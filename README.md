@@ -8,7 +8,9 @@
 ## Kullanım
 - Projeyi bilgisayarınıza indirin.
 - Python yüklü olduğundan emin olun.
-- bmi_calculator.py dosyasını çalıştırarak BMI hesaplamasını başlatın.
+- FileNotFound benzeri hata alırsanız aynı klasörde olacak şekilde user_data.json dosyası oluşturup içine [] koyunuz.
+- Logo eklemek isterseniz kod satırları içerisinde bmi_logo.png ile aratarak aynı klasörde olacak şekilde logonuzu ekleyebilirsiniz.
+- `bmi_calculator.py` dosyasını çalıştırarak BMI hesaplamasını başlatın.
 - Kilo ve boy bilgilerini girin, program BMI değerinizi ve kategorinizi hesaplasın.
 
 ## Kategori
@@ -32,6 +34,8 @@ This project is a simple calculator that allows users to calculate their Body Ma
 ## Usage
 - Download the project to your computer.
 - Ensure that Python is installed.
+- If you receive an error similar to FileNotFound, create a user_data.json file in the same folder and put [] in it.
+- If you want to add a logo, you can add your logo in the same folder by searching bmi_logo.png in the code lines.
 - Run the `bmi_calculator.py` file to start the BMI calculation.
 - Enter your weight and height, and the program will calculate your BMI and category.
 
