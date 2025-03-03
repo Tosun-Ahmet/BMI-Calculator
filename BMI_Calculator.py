@@ -424,6 +424,38 @@ def main_screen():
             history_listbox.insert(END, f"ID: {data['Id']}, Name: {data['Name']}, Surname: {data['Surname']}")
         history_listbox.pack()
 
+        # Delete User
+        delete_user_id = Label(history_window, text="ID number of the person you want to delete", font=("Verdana", 7, "italic"), bg="black", fg="white")
+        delete_user_id.pack()
+
+        delete_user_entry = Entry(history_window, bg="white", fg="black")
+        delete_user_entry.pack()
+
+        def delete_user_with_id():
+            id_to_delete = delete_user_entry.get()
+            if not id_to_delete:
+                messagebox.showerror("Error", "Please enter a valid ID.")
+                return
+
+            try:
+                id_to_delete = int(id_to_delete)
+            except ValueError:
+                messagebox.showerror("Error", "Please enter a valid numeric ID.")
+                return
+
+            global user_data
+            original_length = len(user_data)
+            user_data = [shadow_data for shadow_data in user_data if shadow_data["Id"] != id_to_delete]
+
+            with open("user_data.json", "w", encoding="utf-8") as file:
+                json.dump(user_data, file, indent=4)
+
+            if len(user_data) < original_length:
+                messagebox.showinfo("Successfully", f"ID {id_to_delete} has been deleted.")
+            else:
+                messagebox.showerror("Error", "User not found")
+            history_window.destroy()
+
         def listbox_selected(_):
             selected_index = history_listbox.curselection()
             if not selected_index:
@@ -438,6 +470,10 @@ def main_screen():
         history_listbox.bind('<<ListboxSelect>>', listbox_selected)
         back_button = Button(history_window, text="Back", command=history_window.destroy, bg="black", fg="white")
         back_button.pack(pady=10)
+
+        # Delete Button
+        delete_user_button = Button(history_window, text="Delete", bg="black", fg="red", command=delete_user_with_id)
+        delete_user_button.pack(pady=10)
 
     def reset_data():
         global counter, user_data
@@ -454,7 +490,6 @@ def main_screen():
                 messagebox.showinfo("Reset", "Your data has been reset")
             else:
                 messagebox.showinfo("Info", "No data found to reset")
-
     # Buttons
     calculate_button = Button(button_frame, text="Calculate", command=calculate_bmi, bg="black", fg="white")
     calculate_button.pack(side=LEFT, padx=10, pady=5)
